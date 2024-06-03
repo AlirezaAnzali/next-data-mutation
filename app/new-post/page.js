@@ -2,6 +2,7 @@ import PostForm from "@/components/post-form";
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost } from "@/lib/posts";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default function NewPostPage() {
   async function createPost(formData) {
@@ -25,6 +26,7 @@ export default function NewPostPage() {
       userId: 1,
     });
 
+    revalidatePath("/", "layout");
     redirect("/feed");
   }
 
